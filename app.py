@@ -7,7 +7,7 @@ from flask_cors import CORS
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3001"}})
+CORS(app, resources={r"/*": {"origins": os.getenv("CORS_ORIGIN")}})  # Enable CORS for the specified origin
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 
