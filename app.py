@@ -33,6 +33,7 @@ def upload():
             print("Processing file:", file.filename)
             print("MIME type:", file.mimetype)
             print("Size (bytes):", len(file.read()))
+            file.seek(0)  # Reset file pointer after reading
             getPdfData(file)
             processed_files.append(file.filename)
 
