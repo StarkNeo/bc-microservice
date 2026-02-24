@@ -10,6 +10,9 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": os.getenv("CORS_ORIGIN")}})  # Enable CORS for the specified origin
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
+@app.route("/", methods=["GET"])
+def home():
+    return "Welcome to the Tax Compliance Microservice API", 200
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
