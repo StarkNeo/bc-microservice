@@ -13,12 +13,11 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
-    print("Received upload request", request.files)
-    if "file" not in request.files:
-        return jsonify({"error": "No file received"}), 400
-
+    
     try:
         file_list = request.files.getlist("file")  # Get all files
+        if not file_list:
+            return jsonify({"error": "No files received"}), 400
         for file in file_list:
             getPdfData(file)  # Pass the file object directly to getPdfData
             return (
