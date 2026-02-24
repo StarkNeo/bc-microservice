@@ -13,28 +13,34 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
-    print("Received request to /upload endpoint")  # Debugging statement
-    print("Request method:", request.method)  # Debugging statement
-    print("Request files:", request.files)  # Debugging statement
+    print("Received request to /upload endpoint")
+    print("Request method:", request.method)
+    print("Request files:", request.files)
+
     try:
-        file_list = request.files.getlist("file")  # Get all files
+        # Get all files sent under the "file" field
+        file_list = request.files.getlist("file")
+
         if not file_list:
             return jsonify({"error": "No files received"}), 400
+
+        processed_files = []
+
         for file in file_list:
-            getPdfData(file)  # Pass the file object directly to getPdfData
-            return (
-                jsonify(
-                    {
-                        "message": "Files processed successfully",
-                        "filenames": [file.filename for file in file_list],
-                    }
-                ),
-                200,
-            )
+            print("Processing file:", file.filename)
+            print("MIME type:", file.mimetype)
+            print("Size (bytes):", len(file.read()))
+            getPdfData(file)
+            processed_files.append(file.filename)
+
+        return jsonify({
+            "message": "Files processed successfully",
+            "filenames": processed_files
+        }), 200
 
     except Exception as e:
         print("Error processing files:", e)
-        return jsonify({"error": "Error processing files"}), 500
+        return jsonify({"error": "Error processing files", "details": str(e)}), 500
 
 
 @app.route("/cumplimiento", methods=["GET", "POST"])
