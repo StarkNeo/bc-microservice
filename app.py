@@ -13,7 +13,9 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
-    
+    print("Received request to /upload endpoint")  # Debugging statement
+    print("Request method:", request.method)  # Debugging statement
+    print("Request files:", request.files)  # Debugging statement
     try:
         file_list = request.files.getlist("file")  # Get all files
         if not file_list:
@@ -37,6 +39,9 @@ def upload():
 
 @app.route("/cumplimiento", methods=["GET", "POST"])
 def cumplimiento():
+    print("Received request to /cumplimiento endpoint")  # Debugging statement
+    print("Request method:", request.method)  # Debugging statement
+    
     data = getCumplimientoData()
     return jsonify(data), 200
 
