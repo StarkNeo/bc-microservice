@@ -9,14 +9,15 @@ logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": os.getenv("CORS_ORIGIN")}})  # Enable CORS for the specified origin
+#CORS(app, resources={r"/*": {"origins": os.getenv("CORS_ORIGIN")}})  # Enable CORS for the specified origin
+CORS(app)  # Enable CORS for all origins (for testing purposes, adjust in production)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 @app.route("/", methods=["GET"])
 def home():
     return "Welcome to the Tax Compliance Microservice API", 200
 
-@app.route("/upload", methods=["GET", "POST"])
+@app.route("/upload", methods=["POST"])
 def upload():
     logging.info("Received request to /upload endpoint")
     logging.info("Request content type: %s", request.content_type)
