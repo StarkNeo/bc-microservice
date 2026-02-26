@@ -30,8 +30,8 @@ def upload():
         # Get all files sent under the "file" field
         file_list = request.files.getlist("file")
 
-        if not file_list:
-            return jsonify({"error": "No files received"}), 400
+        #if not file_list:
+         #   return jsonify({"error": "No files received"}), 400
 
         processed_files = []
 
