@@ -46,8 +46,27 @@ text_cumplimiento = """CREATE TABLE IF NOT EXISTS cumplimiento_impuestos (
     cantidad_a_pagar INTEGER,
     fecha_pago DATE);"""
 table_cumplimiento = cur.execute(text_cumplimiento)
-conn.commit()
+# conn.commit()
 
+populate_catalogo_impuestos = """INSERT INTO catalogo_impuestos (nombre, descripcion) VALUES
+        ('Impuesto al Valor Agregado Personas fisicas', 'IVA'),
+        ('Impuesto al Valor Agregado Personas morales', 'IVA'),
+        ('ISR personas físicas Actividad empresarial y profesional', 'ISR'),
+        ('ISR personas físicas Arrendamiento de inmuebles', 'ISR'),
+        ('ISR personas morales', 'ISR'),
+        ('ISR POR PAGOS POR CUENTA DE TERCEROS O RETENCIONES POR', 'ISR RETENIDO'),
+        ('ISR retenciones por salarios', 'ISR RETENIDO'),
+        ('ISR RETENCIONES POR SERVICIOS PROFESIONALES REGIMEN SIMPLIFICADO DE CONFIANZA', 'ISR RETENIDO'),
+        ('ISR simplificado de confianza Personas fisicas', 'ISR'),
+        ('ISR simplificado de confianza Personas morales', 'ISR'),
+        ('IVA retenciones', 'IVA RETENIDO'),
+        ('IVA simplificado de confianza', 'IVA')
 
-#balanzas = cur.execute("SELECT * FROM cumplimiento_impuestos LIMIT 10;")
+;"""
+
+#catalogo = cur.execute("SELECT * FROM catalogo_impuestos LIMIT 10;")
+#cur.execute(populate_catalogo_impuestos)
+#conn.commit()
+#cur.execute("SELECT * FROM catalogo_impuestos LIMIT 10;")
 #print(cur.fetchall())
+
