@@ -30,7 +30,7 @@ def upload():
 
     try:
         # Get all files sent under the "file" field
-        file_list = request.form.to_dict(flat=False).get("file", [])
+        file_list = request.form.to_dict(flat=False).get("files", [])
 
         if not file_list:
             return jsonify({"error": "No files received"}), 400
