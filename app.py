@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
+from flask import request
 from func import getPdfData, getCumplimientoData
 import os
 from flask_cors import CORS
@@ -29,10 +30,10 @@ def upload():
 
     try:
         # Get all files sent under the "file" field
-        file_list = request.files.getlist("file")
+        file_list = request.form.to_dict(flat=False).get("file", [])
 
-        #if not file_list:
-         #   return jsonify({"error": "No files received"}), 400
+        if not file_list:
+            return jsonify({"error": "No files received"}), 400
 
         processed_files = []
 
