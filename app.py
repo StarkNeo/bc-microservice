@@ -3,7 +3,9 @@ from flask import Flask, request, jsonify
 from func import getPdfData, getCumplimientoData
 import os
 from flask_cors import CORS
+import logging
 
+logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
 app = Flask(__name__)
@@ -16,9 +18,9 @@ def home():
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
-    print("Received request to /upload endpoint")
-    print("Request method:", request.method)
-    print("Request files:", request.files)
+    logging.info("Received request to /upload endpoint")
+    logging.info("Request method: %s", request.method)
+    logging.info("Request files: %s", request.files)
 
     try:
         # Get all files sent under the "file" field
@@ -30,9 +32,9 @@ def upload():
         processed_files = []
 
         for file in file_list:
-            print("Processing file:", file.filename)
-            print("MIME type:", file.mimetype)
-            print("Size (bytes):", len(file.read()))
+            logging.info("Processing file: %s", file.filename)
+            logging.info("MIME type: %s", file.mimetype)
+            logging.info("Size (bytes): %d", len(file.read()))
             file.seek(0)  # Reset file pointer after reading
             getPdfData(file)
             processed_files.append(file.filename)
@@ -43,14 +45,14 @@ def upload():
         }), 200
 
     except Exception as e:
-        print("Error processing files:", e)
+        logging.error("Error processing files: %s", e)
         return jsonify({"error": "Error processing files", "details": str(e)}), 500
 
 
 @app.route("/cumplimiento", methods=["GET", "POST"])
 def cumplimiento():
-    print("Received request to /cumplimiento endpoint")  # Debugging statement
-    print("Request method:", request.method)  # Debugging statement
+    logging.info("Received request to /cumplimiento endpoint")
+    logging.info("Request method: %s", request.method)
     
     data = getCumplimientoData()
     return jsonify(data), 200
