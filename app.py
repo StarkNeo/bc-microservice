@@ -21,6 +21,7 @@ def upload():
     logging.info("Received request to /upload endpoint")
     logging.info("Request method: %s", request.method)
     logging.info("Request files: %s", request.files)
+    logging.info("Request from backenddata endpoint upload: %s", request.form)
 
     try:
         # Get all files sent under the "file" field
