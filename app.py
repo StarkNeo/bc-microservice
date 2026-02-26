@@ -19,6 +19,9 @@ def home():
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
     logging.info("Received request to /upload endpoint")
+    logging.info("Request content type: %s", request.content_type)
+    logging.info("Request headers: %s", request.headers)
+    logging.info("Request DATA: %s", request.data)
     logging.info("Request method: %s", request.method)
     logging.info("Request files: %s", request.files)
     logging.info("Request from backenddata endpoint upload: %s", request.form)
