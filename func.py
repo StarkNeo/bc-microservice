@@ -158,10 +158,10 @@ def infoStatementHandler(info, filas):
                 linea.append({"rfc": element.split(":")[1].split()[0]})
                 
             elif "razón social" in element:
-                linea.append({"razon_social": element.split(":")[1]})
+                linea.append({"razon_social": (element.split(":")[1]).replace("'", "")})
                 
             elif "Nombre" in element:
-                linea.append({"razon_social": element.split(":")[1]})
+                linea.append({"razon_social": (element.split(":")[1]).replace("'", "")})
             elif "Tipo de declaración" in element:
                 
                 linea.append({"tipo_declaracion": element.split(":")[1].split()[0]})
