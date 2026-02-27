@@ -18,12 +18,14 @@ conn = psycopg2.connect(os.getenv("URL_INTERNAL"))
 
 cur = conn.cursor()
 
-text_catalogo_impuestos = """CREATE TABLE IF NOT EXISTS catalogo_impuestos (
+text_catalogo_impuestos = """
+CREATE TABLE IF NOT EXISTS catalogo_impuestos (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
-    descripcion TEXT);"""
+    descripcion TEXT);
+"""
 
-table_catalogo_impuestos = cur.execute(text_catalogo_impuestos)
+
 
 text_cumplimiento = """CREATE TABLE IF NOT EXISTS cumplimiento_impuestos (
     id SERIAL PRIMARY KEY,
@@ -45,8 +47,7 @@ text_cumplimiento = """CREATE TABLE IF NOT EXISTS cumplimiento_impuestos (
     subsidio_empleo INTEGER,
     cantidad_a_pagar INTEGER,
     fecha_pago DATE);"""
-table_cumplimiento = cur.execute(text_cumplimiento)
-# conn.commit()
+
 
 populate_catalogo_impuestos = """INSERT INTO catalogo_impuestos (nombre, descripcion) VALUES
         ('Impuesto al Valor Agregado Personas fisicas', 'IVA'),
@@ -63,10 +64,13 @@ populate_catalogo_impuestos = """INSERT INTO catalogo_impuestos (nombre, descrip
         ('IVA simplificado de confianza', 'IVA')
 
 ;"""
-
+#cur.execute(text_catalogo_impuestos)
+#cur.execute(text_cumplimiento)
+#cur.execute(populate_catalogo_impuestos)
+#conn.commit()
 #catalogo = cur.execute("SELECT * FROM catalogo_impuestos LIMIT 10;")
 #cur.execute(populate_catalogo_impuestos)
 #conn.commit()
-#cur.execute("SELECT * FROM catalogo_impuestos LIMIT 10;")
+
 #print(cur.fetchall())
 
