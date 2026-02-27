@@ -4,6 +4,10 @@ import os
 import re
 from dbconfig import cur
 from datetime import datetime
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
 
 def parse_text_date(date_str):
     # Define possible date formats
@@ -56,12 +60,12 @@ months_dictionary={
 
 
 def infoTaxesHandler(info):
-    print("--------------------INFORMACION DE LOS IMPUESTOS--------------")
+    logging.info("--------------------INFORMACION DE LOS IMPUESTOS--------------")
     ### Separar por concepto de pago
-    print("--------------SEPARANDO POR CONCEPTO DE PAGO------------------")
+    logging.info("--------------SEPARANDO POR CONCEPTO DE PAGO------------------")
     conceptos_pago = info.split("Concepto de pago")[1:]
     ### cuantos elementos hay en la lista sin contar el primer elemento
-    print(
+    logging.info(
         "------------------CANTIDAD DE CONCEPTOS DE PAGO ENCONTRADOS: --------------------"
     )
     
@@ -126,9 +130,9 @@ def infoStatementHandler(info, filas):
             if "RFC" in element:
                 linea.append({"rfc": element.split(":")[1].split()[0]})
             elif "razón social" in element:
-                linea.append({"razon_social": element.split(":")[1]})
+                linea.append({"razon_social": (element.split(":")[1]).replace("'", "")})
             elif "Nombre" in element:
-                linea.append({"razon_social": element.split(":")[1]})
+                linea.append({"razon_social": (element.split(":")[1]).replace("'", "")})
             elif "Tipo de declaración" in element:
                 linea.append({"tipo_declaracion": element.split(":")[1].split()[0]})                
             elif "Periodicidad" in element:

@@ -10,8 +10,8 @@ logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
 app = Flask(__name__)
-#CORS(app, resources={r"/*": {"origins": os.getenv("CORS_ORIGIN")}})  # Enable CORS for the specified origin
-CORS(app)  # Enable CORS for all origins (for testing purposes, adjust in production)
+CORS(app, resources={r"/*": {"origins": os.getenv("CORS_ORIGIN")}})  # Enable CORS for the specified origin
+#CORS(app)  # Enable CORS for all origins (for testing purposes, adjust in production)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 @app.route("/", methods=["GET"])
@@ -21,12 +21,7 @@ def home():
 @app.route("/upload", methods=["POST"])
 def upload():
     logging.info("Received request to /upload endpoint")
-    logging.info("Request content type: %s", request.content_type)
-    logging.info("Request headers: %s", request.headers)
-    logging.info("Request DATA: %s", request.data)
-    logging.info("Request method: %s", request.method)
-    logging.info("Request files: %s", request.files)
-    logging.info("Request from backenddata endpoint upload: %s", request.form)
+   
 
     try:
         # Get all files sent under the "file" field

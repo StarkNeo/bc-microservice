@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
 # Connect to the database development
 """conn = psycopg2.connect(
     dbname=os.getenv("DBNAME"),
